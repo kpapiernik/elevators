@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+    db:
+      image: postgers:latest
+      restart: always
+      volumes:
+        - db:/var/lib/postgres/data
+      environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=rootpassword
+      ports:
+        - "5432:5432"
+      expose:
+        - "5432"
+      networks:
+        - elevators-app
+
+    elevators-web-app:
+      image: elevators-app
+      build:
+        context: .
+        dockerfile: Dockerfile
+      restart: always
+      ports:
+        - "8080:8080"
+      networks:
+        - elevators-app
+
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  elevators-app:
