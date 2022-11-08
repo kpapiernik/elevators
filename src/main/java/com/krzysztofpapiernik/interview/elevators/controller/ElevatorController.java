@@ -28,5 +28,4 @@ public class ElevatorController {
         return new ResponseDto<>(elevatorService.getAllElevators());
     }
 
-    public
 }
