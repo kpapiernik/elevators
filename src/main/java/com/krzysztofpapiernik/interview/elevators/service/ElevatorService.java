@@ -6,7 +6,6 @@ import com.krzysztofpapiernik.interview.elevators.dto.GetElevatorDto;
 import com.krzysztofpapiernik.interview.elevators.exception.ElevatorServiceException;
 import com.krzysztofpapiernik.interview.elevators.model.Elevator;
 import com.krzysztofpapiernik.interview.elevators.repository.ElevatorRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +14,23 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class ElevatorService {
 
     private final ElevatorRepository elevatorRepository;
 
     @Value("${elevatorService.maxNumberOfElevators}")
-    private final Integer MAX_NUMBER_OF_ELEVATORS;
+    private final Integer MAX_NUMBER_OF_ELEVATORS = 0;
 
     @Value("${elevator.highestFloor}")
-    private final Integer HIGHEST_FLOOR;
+    private final Integer HIGHEST_FLOOR = 0;
 
     @Value("${elevator.lowestFloor}")
-    private final Integer LOWEST_FLOOR;
+    private final Integer LOWEST_FLOOR = 0;
+
+    public ElevatorService(ElevatorRepository elevatorRepository) {
+        this.elevatorRepository = elevatorRepository;
+    }
 
     public GetElevatorDto addElevator(){
 
