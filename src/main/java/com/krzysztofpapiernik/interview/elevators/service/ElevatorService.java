@@ -72,6 +72,10 @@ public class ElevatorService {
                 .findElevatorById(dto.id())
                 .orElseThrow(() -> new ElevatorServiceException(Map.of("id", "Elevator with id %d does not exist".formatted(dto.id()))));
 
+        if(dto.floor() > HIGHEST_FLOOR || dto.floor() < LOWEST_FLOOR){
+            throw new ElevatorServiceException("floor value is out of the range: %d - %d".formatted(LOWEST_FLOOR, HIGHEST_FLOOR));
+        }
+
         return elevatorRepository
                 .save(elevator.withCallAdded(dto.floor()))
                 .toGetElevatorCalls();
