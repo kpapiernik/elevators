@@ -29,7 +29,8 @@ public class Elevator {
     private Integer targetFloor = 0;
 
     @Enumerated(EnumType.STRING)
-    private Direction direction;
+    @Builder.Default
+    private Direction direction = Direction.STOP;
 
     @ElementCollection
     @Builder.Default
@@ -59,17 +60,23 @@ public class Elevator {
         }
 
         if(direction.equals(Direction.DOWN)){
-            return findNextBloorBelow(sortedCalls);
+            return findNextFloorBelow(sortedCalls);
         }
 
         if(direction.equals(Direction.STOP)){
+            direction = Direction.UP;
             return findNextFloorAbove(sortedCalls);
         }
         return this.currentFloor;
     }
 
     private Integer findNextFloorAbove(List<Integer> sortedFloorCalls){
-        var choseFloor = sortedFloorCalls.stream().filter(call -> call.compareTo(currentFloor) > 0).mapToInt(x -> x).min().orElse(findNextBloorBelow(sortedFloorCalls));
+        var choseFloor = sortedFloorCalls
+                .stream()
+                .filter(call -> call.compareTo(currentFloor) > 0)
+                .reduce(Integer::min)
+                .orElseGet(() -> findNextFloorBelow(sortedFloorCalls));
+
         calls.remove(choseFloor);
         if(choseFloor < currentFloor){
             direction = Direction.DOWN;
@@ -77,8 +84,12 @@ public class Elevator {
         return choseFloor;
     }
 
-    private Integer findNextBloorBelow(List<Integer> sortedFloorCalls){
-        var choseFloor = sortedFloorCalls.stream().filter(call -> call.compareTo(currentFloor) < 0).mapToInt(x -> x).min().orElse(findNextFloorAbove(sortedFloorCalls));
+    private Integer findNextFloorBelow(List<Integer> sortedFloorCalls){
+        var choseFloor = sortedFloorCalls
+                .stream().filter(call -> call.compareTo(currentFloor) < 0)
+                .reduce(Integer::max)
+                .orElseGet(() -> findNextFloorAbove(sortedFloorCalls));
+
         calls.remove(choseFloor);
         if(choseFloor > currentFloor){
             direction = Direction.UP;
@@ -90,8 +101,9 @@ public class Elevator {
         return Elevator
                 .builder()
                 .id(id)
-                .currentFloor(this.targetFloor)
+                .currentFloor(targetFloor)
                 .targetFloor(chooseNextFloor())
+                .calls(calls)
                 .build();
     }
 
