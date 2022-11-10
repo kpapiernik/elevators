@@ -20,21 +20,21 @@ import java.util.Set;
 public class Elevator {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    protected Long id;
 
     @Builder.Default
-    private Integer currentFloor = 0;
+    protected Integer currentFloor = 0;
 
     @Builder.Default
-    private Integer targetFloor = 0;
+    protected Integer targetFloor = 0;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Direction direction = Direction.STOP;
+    protected Direction direction = Direction.STOP;
 
     @ElementCollection
     @Builder.Default
-    private Set<Integer> calls = new HashSet<>();
+    protected Set<Integer> calls = new HashSet<>();
 
     public Elevator withCallAdded(Integer calledFloor){
         calls.add(calledFloor);
@@ -103,6 +103,7 @@ public class Elevator {
                 .id(id)
                 .currentFloor(targetFloor)
                 .targetFloor(chooseNextFloor())
+                .direction(direction)
                 .calls(calls)
                 .build();
     }
