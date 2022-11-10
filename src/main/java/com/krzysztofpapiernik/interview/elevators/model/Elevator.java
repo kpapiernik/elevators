@@ -5,10 +5,12 @@ import com.krzysztofpapiernik.interview.elevators.dto.GetElevatorDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Builder
@@ -115,5 +117,18 @@ public class Elevator {
     public GetElevatorCallsDto toGetElevatorCalls(){
         var callSetToList = calls.stream().toList();
         return new GetElevatorCallsDto(id, callSetToList);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Elevator elevator = (Elevator) o;
+        return id != null && Objects.equals(id, elevator.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
