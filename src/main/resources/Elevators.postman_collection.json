@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "905f649d-b4d6-41cb-844d-7cae585568f8",
+		"name": "Elevators",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6405483"
+	},
+	"item": [
+		{
+			"name": "Add Elevator",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators"
+					]
+				},
+				"description": "Adds a new elevator to the database and returns its id. Request body should stay empty."
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Elevators",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators"
+					]
+				},
+				"description": "Returns all elevators registered in the system."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Elevator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators/{{id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators",
+						"{{id}}"
+					]
+				},
+				"description": "Returns a specific elevator based on the id given as path variable."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Elevator",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators",
+						"1"
+					]
+				},
+				"description": "Delete a specific elevator based on the id given as path variable."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Elevator Call",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators/calls",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators",
+						"calls"
+					]
+				},
+				"description": "Adds a floor call for a specific elevator.\n\nRequires two attributes:\n\n- id -> represents elevator id\n- floor -> represents floor number"
+			},
+			"response": []
+		},
+		{
+			"name": "Move Simulation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/elevators/move",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"elevators",
+						"move"
+					]
+				},
+				"description": "Performs a simulation step. All elevators, based on a set algorithm, move according to their list of calls. Request body should stay empty."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		}
+	]
+}
