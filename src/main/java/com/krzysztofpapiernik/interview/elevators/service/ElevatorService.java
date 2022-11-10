@@ -20,13 +20,13 @@ public class ElevatorService {
     private final ElevatorRepository elevatorRepository;
 
     @Value("${elevatorService.maxNumberOfElevators}")
-    private final Integer MAX_NUMBER_OF_ELEVATORS = 0;
+    protected final Integer MAX_NUMBER_OF_ELEVATORS = 1;
 
     @Value("${elevator.highestFloor}")
-    private final Integer HIGHEST_FLOOR = 0;
+    protected final Integer HIGHEST_FLOOR = 5;
 
     @Value("${elevator.lowestFloor}")
-    private final Integer LOWEST_FLOOR = 0;
+    protected final Integer LOWEST_FLOOR = -1;
 
     public ElevatorService(ElevatorRepository elevatorRepository) {
         this.elevatorRepository = elevatorRepository;
@@ -73,7 +73,7 @@ public class ElevatorService {
                 .orElseThrow(() -> new ElevatorServiceException(Map.of("id", "Elevator with id %d does not exist".formatted(dto.id()))));
 
         if(dto.floor() > HIGHEST_FLOOR || dto.floor() < LOWEST_FLOOR){
-            throw new ElevatorServiceException("floor value is out of the range: %d - %d".formatted(LOWEST_FLOOR, HIGHEST_FLOOR));
+            throw new ElevatorServiceException(Map.of("floor", "floor value is out of the range: %d - %d".formatted(LOWEST_FLOOR, HIGHEST_FLOOR)));
         }
 
         return elevatorRepository
