@@ -12,6 +12,8 @@ The project shows a simplified simulation of an elevator management system in a 
 - Postgres SQL
 - Lombok
 - JUnit 5
+- Mockito
+- AssertJ
 - Docker
 
 ## Requirements
