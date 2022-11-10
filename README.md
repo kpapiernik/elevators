@@ -35,6 +35,7 @@ To stop application use: `docker-compose stop`
 
 ## REST API Documentation
 ***
-You can find the documentation at the [link](https://user-images.githubusercontent.com/30383691/200979762-66cf31a9-ea69-42cc-9bf4-eae3462b0d4b.png)
+You can find the documentation at the [link](https://documenter.getpostman.com/view/6405483/2s8YekQudJ)
+![](https://user-images.githubusercontent.com/30383691/200979762-66cf31a9-ea69-42cc-9bf4-eae3462b0d4b.png)
 
 Additionally, in the `src / main / resources` folder you can find the file Elevators.postman_collection.json with which you can import the collection for testing into your Postman.
